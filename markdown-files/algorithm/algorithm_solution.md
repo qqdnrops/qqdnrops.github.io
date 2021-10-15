@@ -816,3 +816,27 @@ function main(_x,_y) {
 }
 ```
 
+## 位数相加，直到和位个位数
+
+```js
+function digital_root(n) {
+  // ...
+  let data = n
+    .toString()
+    .split("")
+    .map((x) => {
+      return parseInt(x);
+    });
+  let sum = 0;
+  data.forEach((x) => {
+    sum += x;
+  });
+  return sum < 9 ? sum : digital_root(sum);
+}
+//1+6+4=11
+//1+1=2
+//return 2
+console.log(digital_root(164));
+
+```
+
