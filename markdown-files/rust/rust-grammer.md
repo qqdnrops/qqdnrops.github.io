@@ -1,75 +1,4 @@
-# Rust  Algorithms
-
-## Count the number of occurrences of each character and return it as a list of tuples in order of appearance. For empty output return an empty list. 字符串中字符的出现次数统计
-
-```rust
-// code war problems url :https://www.codewars.com/kata/57a6633153ba33189e000074/train/rust
-// Example:
-// ordered_count("abracadabra") == vec![('a', 5), ('b', 2), ('r', 2), ('c', 1), ('d', 1)]
-#[allow(dead_code)]
-#[allow(unused_variables)]
-#[allow(unused_mut)]
-use std::collections::BTreeMap;
-fn ordered_count(sip: &str) -> Vec<(char, i32)> {
-    let sip = sip.to_owned();
-    let set_sip = sip.clone();
-    let mut arr_sip: Vec<char> = set_sip.chars().collect();
-    arr_sip.sort();
-    arr_sip.reverse();
-    // println!("{:?}", arr_sip);
-    let mut bmap = BTreeMap::new();
-    for x in arr_sip {
-        bmap.insert(x, count_x_in_sip(&sip, x));
-    }
-    // println!("{:?}", bmap);
-    fn count_x_in_sip(sip: &str, target: char) -> i32 {
-        let mut c: i32 = 0;
-        for x in sip.chars() {
-            if target == x {
-                c += 1;
-            }
-        }
-        return c;
-    }
-    // bmap to tuple vec
-    fn convert_bmap_to_vec(bmap: BTreeMap<char, i32>) -> Vec<(char, i32)> {
-        let mut vec = vec![];
-        for (v, k) in &bmap {
-            vec.push((v.to_owned(), k.to_owned()));
-        }
-        return vec;
-    }
-    return convert_bmap_to_vec(bmap);
-}
-
-```
-
-## 选择排序 slection_sort
-
-```rust
-#[allow(dead_code)]
-// code war problems url :https://www.codewars.com/kata/5861d28f124b35723e00005e/train/rust
-pub fn slection_sort(arr: &Vec<i32>) -> Vec<i32> {
-    // write code here
-    let length = arr.len();
-    let mut arr = arr.to_owned();
-    let mut minindex;
-    let mut temp;
-    for i in 0..length - 1 {
-        minindex = i;
-        for j in i + 1..length {
-            if arr[j] < arr[minindex] {
-                minindex = j;
-            }
-        }
-        temp = arr[i];
-        arr[i] = arr[minindex];
-        arr[minindex] = temp;
-    }
-    return arr;
-}
-
-```
+# Rust learn notebook
 
 ## trait in rust
 
@@ -107,7 +36,7 @@ pub fn run(){
 }
 ```
 
-## BTreeMap (类似于python的map，js的Set)  ，val不能重复
+## BTreeMap (类似于 python 的 map，js 的 Set) ，val 不能重复
 
 ```rust
 #[allow(unused_variables)]
@@ -147,7 +76,6 @@ pub fn run() {
         }
     }
 }
-
 ```
 
 ## Types in rust
@@ -226,7 +154,6 @@ pub fn run() {
     println!("int to float:{}", float_data + 0.5);
     println!("int to u64:{}", u64_data);
 }
-
 ```
 
 ## Vector in rust
@@ -271,10 +198,7 @@ pub fn run() {
     }
     println!("{:?}", n);
 }
-
 ```
-
-
 
 ## VecDeque （双向链表）
 
@@ -290,7 +214,7 @@ pub fn run(){
     buff.push_back(10);
     buff.push_back(40);
     println!("{:?}", buff);
-    
+
     // Swaps elements at indices i and j.
     buff.swap(0, 2);
     println!("{:?}",buff);
@@ -298,19 +222,19 @@ pub fn run(){
     //get capacity 占的空间
     let len = buff.capacity();
     println!("{}",len);
-    
+
     //get length
     let length = buff.len();
     println!("{}",length);
-    
+
     buff.reserve_exact(len);
     println!("{:?}",buff);
 
-    //to Vec 
+    //to Vec
     let c: Vec<&i32> = buff.iter().collect();
     println!("vec: {:?}",c);
 
-    //lop value 
+    //lop value
      for num in buff.iter() {
     let val = *num;
     println!("{}",val);
@@ -406,9 +330,6 @@ fn process_payment(pay:Payments){
 
     }
 }
-
-
-
 ```
 
 ## sum up ascii_code
@@ -454,7 +375,6 @@ pub fn run() {
     let x = bar.into_inner(); //Get String value from Cell
     println!("{}", x);
 }
-
 ```
 
 ## RefCell in rust
@@ -487,10 +407,7 @@ pub fn run() {
     let x = bar.into_inner(); //Get String value from refCell
     println!("{}", x);
 }
-
 ```
-
-
 
 ## generic in rust
 
@@ -606,7 +523,6 @@ pub fn run() {
     };
     alen.log();
 }
-
 ```
 
 ## LinkedList (链表)
@@ -665,31 +581,6 @@ pub fn run() {
     // pub fn back(&self) -> Option<&T>
     // assert_eq!(list_sting.back(),Some(&Sting::from("30")));
 }
-
-```
-
-## macro in rust
-
-```rust
-macro_rules! log {
-    // `()` indicates that the macro takes no argument.
-    ($func_name:ty) => {
-        // The macro will expand into the contents of this block.
-
-        println!("{}", stringify!($func_name));
-    };
-}
-macro_rules! multiply_add {
-    ($a:expr, $b:expr, $c:expr) => {
-        $a * ($b + $c)
-    };
-}
-
-pub fn run() {
-    log!(aa);
-    println!("{}", multiply_add!(2, 3, 4))
-}
-
 ```
 
 ## module in rust
@@ -736,7 +627,6 @@ fn get_job(name: &str) -> Option<&str> {
         _ => None,
     }
 }
-
 ```
 
 ## parse json in rust
@@ -778,7 +668,6 @@ pub fn run() {
         println!("not get json");
     }
 }
-
 ```
 
 ## generate random number in rust
@@ -833,9 +722,8 @@ pub fn run() {
         println!("txt file content:{}", content);
     }
 
-    
-}
 
+}
 ```
 
 ## write file in rust
@@ -860,10 +748,7 @@ pub fn run() {
             .expect("can't write");
     }
 }
-
 ```
-
-
 
 ## regex in rust
 
@@ -880,16 +765,14 @@ pub fn run() {
         None => println!("none"),
     }
 }
-
 ```
 
-## 字符串反转 
+## 字符串反转 reverse string
 
 ```rust
   fn reverse(phrase:&str)-> String {
         let mut i = phrase.len();
         let mut reversed = String::new();
-        
         while i > 0 {
             reversed.push(phrase.chars().nth(i - 1).unwrap());
             i -= 1;
@@ -921,7 +804,6 @@ pub fn run() {
 
     println!("Time elapsed in expensive_function() is: {:?}", duration); //run expensive_function() 经历的时间
 }
-
 ```
 
 ## String in rust
@@ -1082,7 +964,6 @@ pub fn run() {
         assert_eq!(3, s.capacity());
     }
 }
-
 ```
 
 ## struct 结构体
@@ -1186,7 +1067,6 @@ pub fn run() {
     };
     println!("{:?}", frames2.pytorch);
 }
-
 ```
 
 ## Test code in rust
@@ -1290,31 +1170,6 @@ pub fn run() {
     };
     println!("{:?}", frames2.pytorch);
 }
-
-```
-
-## Lettcode two_sum problem  solution in rust
-
-```rust
-use std::collections::HashMap;
-
-pub fn run(){
-        fn two_sum(nums: Vec<i32>,taget:i32)-> Vec<i32>{
-            let mut h_map = HashMap::new();
-            for i in 0..nums.len(){
-                if let Some(&j) = h_map.get(&(taget-nums[i])){
-                    return vec![j as i32,i as i32];
-                }
-                else{
-                    h_map.insert(nums[i],i);
-                }
-            }
-            vec![]
-        }
-        let result = two_sum(vec![1,2,0,2],2);
-        println!("{:?}",result);
-
-}
 ```
 
 ## 数组中找到最小的
@@ -1352,10 +1207,9 @@ pub fn run() {
     }
     product_fib(8); //produce 8 number
 }
-
 ```
 
-## rust  数组中删除重复的部分
+## rust 数组中删除重复的部分
 
 ```rust
 #[allow(dead_code)]
@@ -1377,57 +1231,6 @@ pub fn run() {
     println!("{:?}", unique_in_order(data));   //["A", "B", "b"]
     println!("{:?}", unique_in_order(data2));  //['A', 'B', 'C', 'D', 'A', 'B']
 }
-
-```
-
-## 各位相加到小于9 时输出合
-
-```rust
-/*
-各位相加到小于9 时输出
-imput 15 ->6
-imput 19 ->1
-imput 238 ->4
-*/
-
-pub mod c {
-    pub fn run() {
-        use proconio::{input, marker::*};
-        input! {
-            mut s: Chars,
-        }
-        let s = s
-            .iter_mut()
-            .map(|x| x.to_string().parse::<i32>().unwrap())
-            .collect::<Vec<_>>();
-        // println!("{:?}", s);
-        fn count(arr: Vec<i32>) -> i32 {
-            let mut sum = 0;
-            for i in 0..arr.len() {
-                sum += arr[i];
-            }
-            if sum <= 9 {
-                println!("{:?}", sum);
-            } else {
-                let arr = sum
-                    .to_string()
-                    .chars()
-                    .map(|x| x.to_string().parse::<i32>().unwrap())
-                    .collect::<Vec<_>>();
-                // println!("{:?}", arr);
-                count(arr);
-            }
-            return 0;
-        }
-        count(s);
-    }
-}
-
-
-fn main() {
-    c::run();
-}
-
 ```
 
 ## enumerate (遍历)
@@ -1464,98 +1267,29 @@ pub mod c {
 fn main() {
     c::run();
 }
-
 ```
 
-## 输出String的全排序
+## quick start iter fold()
 
 ```rust
-  // input '123' 输出string的全排序
-  // ["1", "12", "123", "2", "23", "3"]
-pub mod c {
-    pub fn run() {
-        use proconio::{input, marker::*};
-        input! {
-            mut s: Chars,
-        }
-        let s = s.iter_mut().map(|x| x.to_string()).collect::<Vec<_>>();
-        // println!("{:?}", s);
-        #[allow(unused_variables)]
-        fn slice_string(in_string: String, start: i32, end: i32) -> String {
-            let mut s = Vec::new();
-            let in_string_vec = in_string
-                .split("")
-                .filter(|s| !s.is_empty())
-                .collect::<Vec<_>>();
-            if start < 0 && end > in_string_vec.len() as i32 {
-                return "out of range".to_owned();
-            } else {
-                for i in start..end {
-                    s.push(in_string_vec[i as usize]);
-                }
-            }
-            return s.join("").to_string();
-        }
-        // let some_string = slice_string(s_string, 0, 3);
-        // println!("{:?}", some_string);
-        let s_string = s.join("").to_string();
-        let mut out_vec = Vec::new();
-        for i in 0..s.len() + 1 {
-            for j in i + 1..s.len() + 1 {
-                out_vec.push(slice_string(s_string.clone(), i as i32, j as i32));
-            }
-        }
-        println!("{:?}", out_vec);
-        // input '123' 输出string的全排序
-        // ["1", "12", "123", "2", "23", "3"]
+    let a = [1, 2, 3];
+    // the sum of all of the elements of the array
+    let sum = a.iter().fold((0,0), |init, x|
+    {
+        let n = init.0+*x;
+        let m = init.1+*x;
+        (n,m)
     }
-}
-
-fn main() {
-    c::run();
-}
+    );
+    eprintln!("{:?}",sum);
 ```
 
-## slice String
+## Select Mul (Atcoder_abc_221_C)
 
 ```rust
-#[allow(unused_variables)]
-        fn slice_string(in_string: String, start: i32, end: i32) -> String {
-            let mut s = Vec::new();
-            let in_string_vec = in_string
-                .split("")
-                .filter(|s| !s.is_empty())
-                .collect::<Vec<_>>();
-            if start < 0 && end > in_string_vec.len() as i32 {
-                return "out of range".to_owned();
-            } else {
-                for i in start..end {
-                    s.push(in_string_vec[i as usize]);
-                }
-            }
-            return s.join("").to_string();
-        }
-```
-
-## Sort Vec 从小到大 排序
-
-```rust
-fn main() {
-    //sort 从小到大 排序
-    let mut vec = vec![100.1, 1.15, 5.5, 1.123, 2.0];
-    vec.sort_by(|a, b| a.partial_cmp(b).unwrap());
-    println!("{:?}", vec);
-    assert_eq!(vec, vec![1.123, 1.15, 2.0, 5.5, 100.1]);
-}
-
-```
-
-## **Select Mul **
-
-```
-Sample Input 1 
+Sample Input 1
 123
-Sample Output 1 
+Sample Output 1
 63
 As described in Problem Statement, there are six ways to separate it:
 12 and 3,
@@ -1566,8 +1300,6 @@ As described in Problem Statement, there are six ways to separate it:
 32 and 1.
 The products of these pairs, in this order, are 36, 63, 26, 62, 23, 32, with 63 being the maximum.
 ```
-
-
 
 ```rust
 //solution for problem C
@@ -1639,13 +1371,12 @@ pub mod c {
 fn main() {
     c::run();
 }
-
 ```
 
-## Atcoder abc 221  problem D
+## Online games (Atcoder_abc_221_D)
 
 ```rust
-//soluti on for problem D
+//solution for problem D
 // 3
 // 1 2
 // 2 3
@@ -1682,59 +1413,4 @@ mod d {
 fn main() {
     d::run();
 }
-
 ```
-
-## find most common element
-
-```rust
-fn main() {
-    /*{"a": 2, "b": 3, "m": 1, "s": 3}
-    common item val :"b"
-    common item index :1
-    common item val :"s"
-    common item index :3
-    */
-    let str = "aabbbssms";
-    fn find_most_common(str: &str) -> [(&str, i32); 1] {
-        let mut bmap = BTreeMap::new();
-        let str_vec = str.split("").filter(|s| !s.is_empty()).collect::<Vec<_>>();
-        for i in 0..str_vec.len() {
-            if !bmap.contains_key(str_vec[i]) {
-                bmap.insert(str_vec[i], 1);
-            } else {
-                let mut count = bmap
-                    .get(str_vec[i])
-                    .unwrap()
-                    .to_string()
-                    .parse::<i32>()
-                    .unwrap();
-                count += 1;
-                bmap.insert(str_vec[i], count);
-            }
-        }
-        fn find_max<I>(iter: I) -> Option<I::Item>
-        where
-            I: Iterator,
-            I::Item: Ord,
-        {
-            iter.reduce(|a, b| if a >= b { a } else { b })
-        }
-        println!("{:?}", bmap);
-        // println!("{:?}", bmap.keys());
-        // println!("{:?}", bmap.values());
-        for (index, item) in bmap.values().enumerate() {
-            if item == find_max(bmap.values()).unwrap() {
-                let vec: Vec<&str> = bmap.keys().cloned().collect();
-                println!("common item val :{:?}", vec[index]);
-                println!("common item index :{:?}", index);
-            }
-        }
-        // println!("{:?}", find_max(bmap.values()).unwrap());
-        return [("", find_max(bmap.values()).unwrap().to_owned())];
-    }
-    find_most_common(str);
-}
-
-```
-
