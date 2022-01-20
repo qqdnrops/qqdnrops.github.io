@@ -335,15 +335,15 @@ fn process_payment(pay:Payments){
 ## sum up ascii_code
 
 ```rust
- fn sum_up_ascii_code(b: String) -> f64 {
-        let mut sum: u32 = 0;
-        for i in b.chars() {
-            sum += i as u32
-        }
-        return (sum as i32) as f64;
-    }
-    let result_1 = sum_up_ascii_code("AB".to_string());
-    println!("{}", result_1);
+fn sum_up_ascii_code(b: String) -> f64 {
+       let mut sum: u32 = 0;
+       for i in b.chars() {
+           sum += i as u32
+       }
+       return (sum as i32) as f64;
+   }
+   let result_1 = sum_up_ascii_code("AB".to_string());
+   println!("{}", result_1);
 ```
 
 ## Cell in rust
@@ -755,15 +755,77 @@ pub fn run() {
 ```rust
 extern crate regex;
 use regex::Regex;
+```
 
+```rust
 pub fn run() {
-    let re = Regex::new(r"(\d{5})").unwrap(); //match 5个数
-    let txt = "12345";
-    println!("{}", re.is_match(txt));
-    match re.captures(txt) {
-        Some(val) => println!("{}", &val[0]),
-        None => println!("none"),
+
+    {//captures
+    let re = Regex::new(r"(?x)(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})").unwrap();
+    let caps = re.captures("2010-03-1400").unwrap();
+
+    dbg!(&caps[0]);
+    dbg!(&caps["year"]);
     }
+
+     {//captures_iter 可遍历
+        let re = Regex::new(r"(?x)(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})").unwrap();
+        let caps = re.captures_iter("2010-03-1400");
+
+        for  i in caps {
+            dbg!(&i);
+        }
+    }
+
+    {
+      let re = Regex::new(r"(\d{5})").unwrap(); //match 5个数
+      let txt = "12345";
+      println!("{}", re.is_match(txt));
+      match re.captures(txt) {
+          Some(val) => println!("{}", &val[0]),
+          None => println!("none"),
+          }
+	  }
+
+     {//str to vec! split str to Vec
+        let re = Regex::new(r"[ \t]+").unwrap();
+        let fields: Vec<&str> = re.split("a b \t  c\td    e").collect();
+        dbg!(&fields);
+        assert_eq!(fields, vec!["a", "b", "c", "d", "e"]);
+
+    }
+
+     {//is match 返回 true flase
+       let text = "I categorically deny having";
+       dbg!(Regex::new(r"\b\w{4}\b").unwrap().is_match(text)); //regex 匹配四个字母 存在的话返回true
+        assert!(Regex::new(r"\b\w{4}\b").unwrap().is_match(text));
+    }
+
+    {//find
+        let text = "I alen categorically deny having triskaidekaphobia.";
+        let mat = Regex::new(r"\b\w{4}\b").unwrap().find(text).unwrap(); //从左开始匹配 返回满足条件的开始 结束index
+        dbg!(mat);
+
+    }
+
+      {//NoExpand
+        use regex::NoExpand;
+
+        let re = Regex::new(r"(?P<last>[^,\s]+),\s+(\S+)").unwrap();
+        let result = re.replace("^Springsteen, Bruce", NoExpand("$2 $last"));
+        dbg!(result);
+    }
+
+    {//返回first match 的位置
+        let text = "aaaaa";
+        let pos = Regex::new(r"a+").unwrap().shortest_match(text);
+        dbg!(pos.unwrap());
+    }
+
+
+
+
+
 }
 ```
 
@@ -1272,16 +1334,16 @@ fn main() {
 ## quick start iter fold()
 
 ```rust
-    let a = [1, 2, 3];
-    // the sum of all of the elements of the array
-    let sum = a.iter().fold((0,0), |init, x|
-    {
-        let n = init.0+*x;
-        let m = init.1+*x;
-        (n,m)
-    }
-    );
-    eprintln!("{:?}",sum);
+let a = [1, 2, 3];
+// the sum of all of the elements of the array
+let sum = a.iter().fold((0,0), |init, x|
+{
+    let n = init.0+*x;
+    let m = init.1+*x;
+    (n,m)
+}
+);
+eprintln!("{:?}",sum);
 ```
 
 ## Select Mul (Atcoder_abc_221_C)
